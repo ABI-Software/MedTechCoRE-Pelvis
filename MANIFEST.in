@@ -1,0 +1,3 @@
+recursive-exclude src/resources/osxapp .DS_Store
+recursive-include src/resources/osxapp medtechlogo.icns
+recursive-include src/resources/data *.zip
