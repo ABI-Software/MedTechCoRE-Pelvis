@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'designer/mainwindow.ui'
 #
-# Created: Thu Oct 22 10:01:38 2015
+# Created: Thu Oct 22 20:17:30 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -14,7 +14,7 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/medtech/images/medtechlogo"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/medtech/images/medtechlogo.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setWindowOpacity(1.0)
         MainWindow.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedKingdom))

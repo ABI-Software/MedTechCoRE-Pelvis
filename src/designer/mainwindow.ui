@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources/resources.qrc">
-    <normaloff>:/medtech/images/medtechlogo</normaloff>:/medtech/images/medtechlogo</iconset>
+    <normaloff>:/medtech/images/medtechlogo.png</normaloff>:/medtech/images/medtechlogo.png</iconset>
   </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
