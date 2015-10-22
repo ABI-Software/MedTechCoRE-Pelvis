@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="medtech">
+    <file>images/medtechlogo</file>
+  </qresource>
+</RCC>
