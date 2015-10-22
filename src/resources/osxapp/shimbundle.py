@@ -19,6 +19,7 @@ import sys, os, stat
 from subprocess import check_output
 import shutil
 
+
 def Usage():
     print("\n\tUsage: python " + sys.argv[0] + " appname version\n")
     sys.exit()
@@ -31,7 +32,7 @@ version = sys.argv[2]
 project = sys.argv[1]
 bundleIdentifier = "org.medtechcore.project"
 
-# find the python application; must be an OS X app
+# Find the python application; must be an OS X app
 pythonpath = check_output(['python-config', '--prefix'])
 pythonapp = os.path.join(pythonpath.strip(), 'Resources', 'Python.app', 'Contents', 'MacOS', 'Python')
 
@@ -89,27 +90,38 @@ f.write('''<?xml version="1.0" encoding="UTF-8"?>
 </dict>
 </plist>
 '''.format(projectversion, bundleIdentifier, project, projectversion, version)
-    )
+        )
 f.close()
 
 # not sure what this file does
 f = open(os.path.join(apppath, 'Contents', 'PkgInfo'), "w")
 f.write("APPL????")
 f.close()
-# create a link to the python app, but named to match the project
+# Create a link to the python app, but named to match the project
 os.symlink(pythonapp, newpython)
-# create a script that launches python with the requested app
+# Create a script that launches python with the requested app
 shell = os.path.join(apppath, "Contents", "MacOS", "main.sh")
+# Create a python module to open the application
+launcher = os.path.join(apppath, "Contents", "MacOS", "app.py")
 # Given the current working directory this relative path should be
 # correct.
 program = os.path.abspath(os.path.join('..', '..', 'medtech_pelvis.py'))
 # create a short shell script
-f = open(shell, "w")
-f.write('#!/bin/sh\nexec "' + newpython + '" "' + program + '"\n')
-f.close()
+with open(shell, 'w') as f:
+    f.write('#!/bin/sh\nexec "' + newpython + '" "' + launcher + '"\n')
+
 os.chmod(shell, os.stat(shell).st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+
+with open(launcher, 'w') as f:
+    f.write('__requires__ = \'MedTech-CoRE-Pelvis-Demo==0.1.0\'\n'
+            'import sys\n'
+            'from pkg_resources import load_entry_point\n'
+            '\n'
+            'if __name__ == \'__main__\':\n'
+            '    sys.exit(\n'
+            '        load_entry_point('
+            '            \'MedTech-CoRE-Pelvis-Demo==0.1.0\', \'console_scripts\', \'' + project + '\')()\n'
+            '    )\n')
 
 shutil.copyfile(os.path.join('.', 'medtechlogo.icns'), os.path.join(apppath, 'Contents', 'Resources', 'app.icns'))
 shutil.copytree(os.path.join('..', 'data'), os.path.join(apppath, 'Contents', 'Resources', 'data'))
-
-

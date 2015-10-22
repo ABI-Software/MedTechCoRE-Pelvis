@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 from setuptools.command.install import install as _install
 from setuptools.command.develop import develop as _develop
 
-name = u'MedTech-CorePelvisDemo'
+name = u'MedTech-CoRE Pelvis Demo'
 version = '0.1.0'
 
 dependencies = ['meshparser']
@@ -26,8 +26,10 @@ try:
             site_packages = site.getsitepackages()
             if len(site_packages) > 1:
                 site_package_dir = site_packages[1]
-                with open(os.path.join(site_package_dir, 'PySide-' + pyside_version + '.egg-info'), 'a'):
-                    pass
+                egg_info_file = os.path.join(site_package_dir, 'PySide-' + pyside_version + '.egg-info')
+                if not os.path.exists(egg_info_file):
+                    with open(egg_info_file, 'a'):
+                        pass
         except ImportError:
             pass # Ah well an old version of Python perhaps
 except ImportError:
@@ -39,7 +41,6 @@ if pyside_requirement is not None:
 
 def createApplication(install_dir):
     from subprocess import call
-    print(sys.executable, 'shimbundle.py', name, version, os.path.join(install_dir, 'resources', 'osxapp'))
     call([sys.executable, 'shimbundle.py', name, version],
           cwd=os.path.join(install_dir, 'resources', 'osxapp'))
 
@@ -50,7 +51,7 @@ class install(_install):
     def run(self):
         _install.run(self)
         mac_release, _, _ = platform.mac_ver()
-        if  mac_release:
+        if mac_release:
             self.execute(createApplication, (self.install_lib,),
                          msg="Creating OS X Application")
 
@@ -61,10 +62,9 @@ class develop(_develop):
     def run(self):
         _develop.run(self)
         mac_release, _, _ = platform.mac_ver()
-        if  mac_release:
+        if mac_release:
             self.execute(createApplication, ('src',),
                          msg="Creating OS X Application")
-
 
 setup(name=name,
       version=version,
@@ -77,7 +77,7 @@ setup(name=name,
       license='Apache',
       packages=find_packages('src', exclude=['tests', 'tests.*', ]),
       package_dir={'': 'src'},
-      package_data={'': ['resources/data/*.zip', 'resources/osxapp/medtechlogo.icns', 'resources/osxapp/shimbundle.py']},
+      include_package_data=True,
       zip_safe=True,
       install_requires=dependencies,
       entry_points={'console_scripts': [name + '=medtech_pelvis:main']},

@@ -1,4 +1,3 @@
-import syslog
 
 from PySide import QtGui
 from view.pelvis import PelvisView

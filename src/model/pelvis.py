@@ -1,7 +1,6 @@
-import os
-import syslog
-
 __author__ = 'hsor001'
+
+import os
 
 from meshparser.stlparser.parser import STLParser
 from opencmiss.zinc.context import Context
@@ -33,27 +32,18 @@ class PelvisModel(object):
         return self._context
 
     def load(self):
-        resources_path = os.path.join(os.curdir, 'resources')
         if os.getcwd() == '/':
-            resources_path = os.path.join('/Applications', 'MedTech-CorePelvisDemo.app', 'Contents', 'Resources')
+            resources_path = os.path.join('/Applications', 'MedTech-Core Pelvis Demo.app', 'Contents', 'Resources')
+        else:
+            file_path = os.path.dirname(os.path.realpath(__file__))
+            resources_path = os.path.join(file_path, '..', 'resources')
+
         self._loadFemaleMesh(resources_path)
         self._loadMaleMesh(resources_path)
 
     def _loadFemaleMesh(self, resources_path):
-        syslog.syslog(syslog.LOG_ALERT, '=================1=======================')
-        syslog.syslog(syslog.LOG_ALERT, 'one')
         mp = STLParser()
-        syslog.syslog(syslog.LOG_ALERT, '===================2=====================')
-        syslog.syslog(syslog.LOG_ALERT, 'two')
-        syslog.syslog(syslog.LOG_ALERT, '====================3====================')
-        syslog.syslog(syslog.LOG_ALERT, os.getcwd())
-        syslog.syslog(syslog.LOG_ALERT, " hello bob")
-        syslog.syslog(syslog.LOG_ALERT, os.path.join(resources_path, 'data', 'ship_01.zip'))
-        syslog.syslog(syslog.LOG_ALERT, " goodbye bob")
-
         mp.parse(os.path.join(resources_path, 'data', 'ship_01.zip'))
-        syslog.syslog(syslog.LOG_ALERT, '========================================')
-        syslog.syslog(syslog.LOG_ALERT, 'three')
         nodes_start = mp.getPoints(pared=True)
         elements = mp.getElements(zero_based=False, pared=True)
         mp.parse(os.path.join(resources_path, 'data', 'ship_02.zip'))
