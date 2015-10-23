@@ -1,6 +1,6 @@
 __author__ = 'hsor001'
 
-from scene.pelvis import PelvisScene
+from medtechcore.pelvisdemo.scene.pelvis import PelvisScene
 
 class PelvisView(object):
 

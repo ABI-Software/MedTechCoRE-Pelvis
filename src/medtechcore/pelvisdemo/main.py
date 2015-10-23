@@ -4,8 +4,8 @@ import sys
 
 from PySide import QtGui
 
-from mainwindow import MainWindow
-from model.pelvis import PelvisModel
+from medtechcore.pelvisdemo.mainwindow import MainWindow
+from medtechcore.pelvisdemo.model.pelvis import PelvisModel
 
 
 def main():

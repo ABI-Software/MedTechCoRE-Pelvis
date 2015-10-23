@@ -5,8 +5,8 @@ import os
 from meshparser.stlparser.parser import STLParser
 from opencmiss.zinc.context import Context
 
-from utils.zinc import createMesh, createNodes, createElements, createMeshTime
-from utils.zinc import createFiniteElementField
+from medtechcore.pelvisdemo.utils.zinc import createMeshTime
+from medtechcore.pelvisdemo.utils.zinc import createFiniteElementField
 
 
 class PelvisModel(object):
@@ -36,7 +36,7 @@ class PelvisModel(object):
             resources_path = os.path.join('/Applications', 'MedTech-Core Pelvis Demo.app', 'Contents', 'Resources')
         else:
             file_path = os.path.dirname(os.path.realpath(__file__))
-            resources_path = os.path.join(file_path, '..', 'resources')
+            resources_path = os.path.join(file_path, '..', '..', '..', 'resources')
 
         self._loadFemaleMesh(resources_path)
         self._loadMaleMesh(resources_path)

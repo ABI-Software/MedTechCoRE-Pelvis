@@ -4,7 +4,7 @@ from setuptools.command.install import install as _install
 from setuptools.command.develop import develop as _develop
 
 name = u'MedTech-CoRE Pelvis Demo'
-version = '0.1.0'
+version = '0.1.1'
 
 dependencies = ['meshparser']
 
@@ -80,6 +80,6 @@ setup(name=name,
       include_package_data=True,
       zip_safe=True,
       install_requires=dependencies,
-      entry_points={'console_scripts': [name + '=medtech_pelvis:main']},
+      entry_points={'console_scripts': [name + '=medtechcore.pelvisdemo.main:main']},
       cmdclass={'install': install, 'develop': develop}
       )

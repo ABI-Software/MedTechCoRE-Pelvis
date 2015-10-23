@@ -1,6 +1,6 @@
 __author__ = 'hsor001'
 
-from utils.zinc import createSurfaceGraphics
+from medtechcore.pelvisdemo.utils.zinc import createSurfaceGraphics
 
 class PelvisScene(object):
 

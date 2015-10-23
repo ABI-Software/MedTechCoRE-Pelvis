@@ -1,7 +1,8 @@
 
 from PySide import QtGui
-from view.pelvis import PelvisView
-from ui_mainwindow import Ui_MainWindow
+
+from medtechcore.pelvisdemo.view.pelvis import PelvisView
+from medtechcore.pelvisdemo.ui_mainwindow import Ui_MainWindow
 
 
 class MainWindow(QtGui.QMainWindow):

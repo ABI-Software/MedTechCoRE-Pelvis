@@ -126,5 +126,5 @@ class Ui_MainWindow(object):
         self.actionQuit.setShortcut(QtGui.QApplication.translate("MainWindow", "Meta+Q", None, QtGui.QApplication.UnicodeUTF8))
         self.actionDemographicOptions.setText(QtGui.QApplication.translate("MainWindow", "Demographic Options", None, QtGui.QApplication.UnicodeUTF8))
 
-from widgets.pelvisviewerwidget import PelvisViewerWidget
+from medtechcore.pelvisdemo.widgets.pelvisviewerwidget import PelvisViewerWidget
 import resources_rc
