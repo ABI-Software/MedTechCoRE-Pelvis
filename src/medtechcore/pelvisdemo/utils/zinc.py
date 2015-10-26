@@ -4,6 +4,7 @@ Created on May 21, 2015
 @author: hsorby
 '''
 from opencmiss.zinc.element import Element, Elementbasis
+import sys
 
 
 def createSurfaceGraphics(scene, finite_element_field, material):
@@ -34,10 +35,10 @@ def createMesh(coordinate_field, nodes, elements, time=None):
 
 
 def createMeshTime(coordinate_field, nodes_start, time_start, nodes_end, time_end, elements):
+    fieldmodule = coordinate_field.getFieldmodule()
+    time_sequence = fieldmodule.getMatchingTimesequence([time_start, time_end])
     # First create all the required nodes
-    createNodes(coordinate_field, nodes_start, time_start)
-    # First create all the required nodes
-    createNodes(coordinate_field, nodes_end, time_end)
+    createNodesTime(coordinate_field, [nodes_start, nodes_end], time_sequence)
     # then define elements using a list of node indexes
     createElements(coordinate_field, elements)
     # Define all faces also
@@ -66,7 +67,40 @@ def createFiniteElementField(region):
 
     return finite_element_field
 
-def createNodes(finite_element_field, node_coordinate_set, time=None):
+def createNodesTime(finite_element_field, node_coordinate_sets, time_sequence):
+    """
+    Create a node for every coordinate in the node_coordinate_set for each time in the time
+    sequence, the number of times in the time sequence must match the number of node
+    coordinate sets.
+    """
+    fieldmodule = finite_element_field.getFieldmodule()
+    # Find a special node set named 'nodes'
+    nodeset = fieldmodule.findNodesetByName('nodes')
+    node_template = nodeset.createNodetemplate()
+
+    # Set the finite element coordinate field for the nodes to use
+    node_template.defineField(finite_element_field)
+    node_template.setTimesequence(finite_element_field, time_sequence)
+
+    field_cache = fieldmodule.createFieldcache()
+    time_count = int(time_sequence.getNumberOfTimes())
+    if len(node_coordinate_sets) != time_count:
+        sys.exit(-3)
+
+    times = []
+    for time_index in range(time_count):
+        time = time_sequence.getTime(time_index + 1)
+        times.append(time)
+
+    for node_coordinate_index in range(len(node_coordinate_sets[0])):
+        node = nodeset.createNode(-1, node_template)
+        # Set the node coordinates, first set the field cache to use the current node
+        field_cache.setNode(node)
+        for index, time in enumerate(times):
+            field_cache.setTime(time)
+            finite_element_field.assignReal(field_cache, node_coordinate_sets[index][node_coordinate_index])
+
+def createNodes(finite_element_field, node_coordinate_set):
     """
     Create a node for every coordinate in the node_coordinate_set.
     """
@@ -74,9 +108,12 @@ def createNodes(finite_element_field, node_coordinate_set, time=None):
     # Find a special node set named 'nodes'
     nodeset = fieldmodule.findNodesetByName('nodes')
     node_template = nodeset.createNodetemplate()
-    
+
     # Set the finite element coordinate field for the nodes to use
     node_template.defineField(finite_element_field)
+    if time is not None:
+        node_template.setTimesequence(finite_element_field, time_sequence)
+
     field_cache = fieldmodule.createFieldcache()
     for node_coordinate in node_coordinate_set:
         node = nodeset.createNode(-1, node_template)

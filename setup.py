@@ -4,9 +4,9 @@ from setuptools.command.install import install as _install
 from setuptools.command.develop import develop as _develop
 
 name = u'MedTech-CoRE Pelvis Demo'
-version = '0.1.1'
+version = '0.1.2'
 
-dependencies = ['meshparser']
+dependencies = ['meshparser==0.3.2']
 
 long_description = """A demonstration of how the pelvis changes for the population.  Specifically looking at the
 difference in characteristics between the male and female pelvis and the impact the width of the hip has.

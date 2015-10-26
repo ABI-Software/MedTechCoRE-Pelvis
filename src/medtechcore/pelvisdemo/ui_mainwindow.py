@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'designer/mainwindow.ui'
 #
-# Created: Thu Oct 22 20:17:30 2015
+# Created: Sat Oct 24 16:52:08 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -54,9 +54,9 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.spinBoxHipWidth.sizePolicy().hasHeightForWidth())
         self.spinBoxHipWidth.setSizePolicy(sizePolicy)
-        self.spinBoxHipWidth.setMinimum(12)
-        self.spinBoxHipWidth.setMaximum(80)
-        self.spinBoxHipWidth.setProperty("value", 64)
+        self.spinBoxHipWidth.setMinimum(236)
+        self.spinBoxHipWidth.setMaximum(324)
+        self.spinBoxHipWidth.setProperty("value", 236)
         self.spinBoxHipWidth.setObjectName("spinBoxHipWidth")
         self.formLayout.setWidget(0, QtGui.QFormLayout.FieldRole, self.spinBoxHipWidth)
         self.radioButtonMale = QtGui.QRadioButton(self.groupBox)
@@ -126,5 +126,5 @@ class Ui_MainWindow(object):
         self.actionQuit.setShortcut(QtGui.QApplication.translate("MainWindow", "Meta+Q", None, QtGui.QApplication.UnicodeUTF8))
         self.actionDemographicOptions.setText(QtGui.QApplication.translate("MainWindow", "Demographic Options", None, QtGui.QApplication.UnicodeUTF8))
 
-from medtechcore.pelvisdemo.widgets.pelvisviewerwidget import PelvisViewerWidget
-import resources_rc
+from widgets.pelvisviewerwidget import PelvisViewerWidget
+from . import resources_rc

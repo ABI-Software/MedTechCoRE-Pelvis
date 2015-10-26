@@ -18,6 +18,8 @@ class PelvisModel(object):
         material_module.defineStandardMaterials()
 
         self._time_keeper = self._context.getTimekeepermodule().getDefaultTimekeeper()
+        self._time_keeper.setMaximumTime(324)
+        self._time_keeper.setMinimumTime(236)
         self._nodes_start = []
         self._nodes_end = []
         self._elements = []
@@ -43,21 +45,21 @@ class PelvisModel(object):
 
     def _loadFemaleMesh(self, resources_path):
         mp = STLParser()
-        mp.parse(os.path.join(resources_path, 'data', 'ship_01.zip'))
+        mp.parse(os.path.join(resources_path, 'data', 'pelvis_female_238mm.stl'))
         nodes_start = mp.getPoints(pared=True)
         elements = mp.getElements(zero_based=False, pared=True)
-        mp.parse(os.path.join(resources_path, 'data', 'ship_02.zip'))
+        mp.parse(os.path.join(resources_path, 'data', 'pelvis_female_322mm.stl'))
         nodes_end = mp.getPoints(pared=True)
-        createMeshTime(self._female_coordinate_field, nodes_start, 12, nodes_end, 64, elements)
+        createMeshTime(self._female_coordinate_field, nodes_start, 238, nodes_end, 322, elements)
 
     def _loadMaleMesh(self, resources_path):
         mp = STLParser()
-        mp.parse(os.path.join(resources_path, 'data', 'pelvis_stl_01.zip'))
+        mp.parse(os.path.join(resources_path, 'data', 'pelvis_male_236mm.stl'))
         nodes_start = mp.getPoints(pared=True)
         elements = mp.getElements(zero_based=False, pared=True)
-        mp.parse(os.path.join(resources_path, 'data', 'pelvis_stl_02.zip'))
+        mp.parse(os.path.join(resources_path, 'data', 'pelvis_male_324mm.stl'))
         nodes_end = mp.getPoints(pared=True)
-        createMeshTime(self._male_coordinate_field, nodes_start, 12, nodes_end, 64, elements)
+        createMeshTime(self._male_coordinate_field, nodes_start, 236, nodes_end, 324, elements)
 
     def set_time(self, value):
         self._time_keeper.setTime(value)

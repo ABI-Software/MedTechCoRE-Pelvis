@@ -41,7 +41,7 @@ class MainWindow(QtGui.QMainWindow):
         if visibleGender != self._visibleGender:
             self._visibleGender = visibleGender
             self._view.set_visible_gender(self._visibleGender)
-            self._ui.widgetScene.viewAll()
+            # self._ui.widgetScene.viewAll()
 
     def _demographicOptionsClicked(self):
         state = self._ui.actionDemographicOptions.isChecked()

@@ -28,8 +28,8 @@ def Usage():
 if not len(sys.argv) == 3:
     Usage()
 
-version = sys.argv[2]
 project = sys.argv[1]
+version = sys.argv[2]
 bundleIdentifier = "org.medtechcore.project"
 
 # Find the python application; must be an OS X app
@@ -103,9 +103,6 @@ os.symlink(pythonapp, newpython)
 shell = os.path.join(apppath, "Contents", "MacOS", "main.sh")
 # Create a python module to open the application
 launcher = os.path.join(apppath, "Contents", "MacOS", "app.py")
-# Given the current working directory this relative path should be
-# correct.
-program = os.path.abspath(os.path.join('..', '..', 'medtech_pelvis.py'))
 # create a short shell script
 with open(shell, 'w') as f:
     f.write('#!/bin/sh\nexec "' + newpython + '" "' + launcher + '"\n')
@@ -113,15 +110,14 @@ with open(shell, 'w') as f:
 os.chmod(shell, os.stat(shell).st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
 
 with open(launcher, 'w') as f:
-    f.write('__requires__ = \'MedTech-CoRE-Pelvis-Demo==0.1.0\'\n'
+    f.write('__requires__ = \'MedTech-CoRE-Pelvis-Demo=={1}\'\n'
             'import sys\n'
             'from pkg_resources import load_entry_point\n'
             '\n'
             'if __name__ == \'__main__\':\n'
             '    sys.exit(\n'
-            '        load_entry_point('
-            '            \'MedTech-CoRE-Pelvis-Demo==0.1.0\', \'console_scripts\', \'' + project + '\')()\n'
-            '    )\n')
+            '        load_entry_point(\'MedTech-CoRE-Pelvis-Demo=={1}\', \'console_scripts\', \'{0}\')()\n'
+            '    )\n'.format(project, version))
 
 shutil.copyfile(os.path.join('.', 'medtechlogo.icns'), os.path.join(apppath, 'Contents', 'Resources', 'app.icns'))
 shutil.copytree(os.path.join('..', 'data'), os.path.join(apppath, 'Contents', 'Resources', 'data'))
