@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'designer/mainwindow.ui'
 #
-# Created: Sat Oct 24 16:52:08 2015
+# Created: Fri Oct 30 11:39:57 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -45,9 +45,6 @@ class Ui_MainWindow(object):
         self.groupBox.setObjectName("groupBox")
         self.formLayout = QtGui.QFormLayout(self.groupBox)
         self.formLayout.setObjectName("formLayout")
-        self.label = QtGui.QLabel(self.groupBox)
-        self.label.setObjectName("label")
-        self.formLayout.setWidget(0, QtGui.QFormLayout.LabelRole, self.label)
         self.spinBoxHipWidth = QtGui.QSpinBox(self.groupBox)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -62,10 +59,18 @@ class Ui_MainWindow(object):
         self.radioButtonMale = QtGui.QRadioButton(self.groupBox)
         self.radioButtonMale.setChecked(True)
         self.radioButtonMale.setObjectName("radioButtonMale")
-        self.formLayout.setWidget(1, QtGui.QFormLayout.SpanningRole, self.radioButtonMale)
+        self.formLayout.setWidget(2, QtGui.QFormLayout.SpanningRole, self.radioButtonMale)
         self.radioButtonFemale = QtGui.QRadioButton(self.groupBox)
         self.radioButtonFemale.setObjectName("radioButtonFemale")
-        self.formLayout.setWidget(2, QtGui.QFormLayout.SpanningRole, self.radioButtonFemale)
+        self.formLayout.setWidget(3, QtGui.QFormLayout.SpanningRole, self.radioButtonFemale)
+        spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.formLayout.setItem(4, QtGui.QFormLayout.LabelRole, spacerItem)
+        self.pushButtonResetView = QtGui.QPushButton(self.groupBox)
+        self.pushButtonResetView.setObjectName("pushButtonResetView")
+        self.formLayout.setWidget(5, QtGui.QFormLayout.LabelRole, self.pushButtonResetView)
+        self.label = QtGui.QLabel(self.groupBox)
+        self.label.setObjectName("label")
+        self.formLayout.setWidget(0, QtGui.QFormLayout.LabelRole, self.label)
         self.horizontalLayout_3.addWidget(self.groupBox)
         self.dockWidget.setWidget(self.dockWidgetContents)
         MainWindow.addDockWidget(QtCore.Qt.DockWidgetArea(1), self.dockWidget)
@@ -76,6 +81,8 @@ class Ui_MainWindow(object):
         self.menu_File.setObjectName("menu_File")
         self.menu_View = QtGui.QMenu(self.menuBar)
         self.menu_View.setObjectName("menu_View")
+        self.menuDevices = QtGui.QMenu(self.menuBar)
+        self.menuDevices.setObjectName("menuDevices")
         MainWindow.setMenuBar(self.menuBar)
         self.action_About = QtGui.QAction(MainWindow)
         self.action_About.setObjectName("action_About")
@@ -96,10 +103,15 @@ class Ui_MainWindow(object):
         self.actionDemographicOptions.setCheckable(True)
         self.actionDemographicOptions.setChecked(True)
         self.actionDemographicOptions.setObjectName("actionDemographicOptions")
+        self.actionIMeasureU = QtGui.QAction(MainWindow)
+        self.actionIMeasureU.setCheckable(True)
+        self.actionIMeasureU.setObjectName("actionIMeasureU")
         self.menu_File.addAction(self.actionQuit)
         self.menu_View.addAction(self.actionDemographicOptions)
+        self.menuDevices.addAction(self.actionIMeasureU)
         self.menuBar.addAction(self.menu_File.menuAction())
         self.menuBar.addAction(self.menu_View.menuAction())
+        self.menuBar.addAction(self.menuDevices.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QObject.connect(self.actionQuit, QtCore.SIGNAL("activated()"), MainWindow.close)
@@ -108,12 +120,14 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MedTech Core", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox.setTitle(QtGui.QApplication.translate("MainWindow", "Demographics", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("MainWindow", "Hip width:", None, QtGui.QApplication.UnicodeUTF8))
         self.radioButtonMale.setText(QtGui.QApplication.translate("MainWindow", "Male     ", None, QtGui.QApplication.UnicodeUTF8))
         self.radioButtonMale.setShortcut(QtGui.QApplication.translate("MainWindow", "Ctrl+S", None, QtGui.QApplication.UnicodeUTF8))
         self.radioButtonFemale.setText(QtGui.QApplication.translate("MainWindow", "Female ", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButtonResetView.setText(QtGui.QApplication.translate("MainWindow", "Reset View", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("MainWindow", "Hip width (mm):", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_File.setTitle(QtGui.QApplication.translate("MainWindow", "&File", None, QtGui.QApplication.UnicodeUTF8))
         self.menu_View.setTitle(QtGui.QApplication.translate("MainWindow", "&View", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuDevices.setTitle(QtGui.QApplication.translate("MainWindow", "Devices", None, QtGui.QApplication.UnicodeUTF8))
         self.action_About.setText(QtGui.QApplication.translate("MainWindow", "&About", None, QtGui.QApplication.UnicodeUTF8))
         self.action_Quit.setText(QtGui.QApplication.translate("MainWindow", "&Quit", None, QtGui.QApplication.UnicodeUTF8))
         self.action_Quit.setStatusTip(QtGui.QApplication.translate("MainWindow", "Quit the application", None, QtGui.QApplication.UnicodeUTF8))
@@ -125,6 +139,7 @@ class Ui_MainWindow(object):
         self.actionQuit.setText(QtGui.QApplication.translate("MainWindow", "&Quit", None, QtGui.QApplication.UnicodeUTF8))
         self.actionQuit.setShortcut(QtGui.QApplication.translate("MainWindow", "Meta+Q", None, QtGui.QApplication.UnicodeUTF8))
         self.actionDemographicOptions.setText(QtGui.QApplication.translate("MainWindow", "Demographic Options", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionIMeasureU.setText(QtGui.QApplication.translate("MainWindow", "I Measure U", None, QtGui.QApplication.UnicodeUTF8))
 
 from widgets.pelvisviewerwidget import PelvisViewerWidget
 from . import resources_rc

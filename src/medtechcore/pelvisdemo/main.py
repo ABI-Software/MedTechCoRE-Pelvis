@@ -1,6 +1,10 @@
 #!/usr/bin/env python
+import subprocess
 
 import sys
+import threading
+import Queue
+import time
 
 from PySide import QtGui
 

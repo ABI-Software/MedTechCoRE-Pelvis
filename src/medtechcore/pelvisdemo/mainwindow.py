@@ -32,6 +32,13 @@ class MainWindow(QtGui.QMainWindow):
         self._ui.spinBoxHipWidth.valueChanged.connect(self._hipWidthValueChanged)
         self._ui.radioButtonFemale.clicked.connect(self._genderClicked)
         self._ui.radioButtonMale.clicked.connect(self._genderClicked)
+        self._ui.actionIMeasureU.activated.connect(self._iMeasureUClicked)
+        self._model.imuInputReceived.connect(self._ui.widgetScene.updateFromIMU)
+        self._model.resetInitialParameters.connect(self._ui.widgetScene.resetInitial)
+        self._ui.pushButtonResetView.clicked.connect(self._resetView)
+
+    def _iMeasureUClicked(self):
+        self._model.listen(self._ui.actionIMeasureU.isChecked())
 
     def _hipWidthValueChanged(self, value):
         self._model.set_time(value)
@@ -41,6 +48,11 @@ class MainWindow(QtGui.QMainWindow):
         if visibleGender != self._visibleGender:
             self._visibleGender = visibleGender
             self._view.set_visible_gender(self._visibleGender)
+            self._resetView()
+
+    def _resetView(self):
+        self._ui.widgetScene.setInitialView()
+        # self._ui.widgetScene.resetView(self._visibleGender)
             # self._ui.widgetScene.viewAll()
 
     def _demographicOptionsClicked(self):

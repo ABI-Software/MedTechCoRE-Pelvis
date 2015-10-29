@@ -53,13 +53,6 @@
         <string>Demographics</string>
        </property>
        <layout class="QFormLayout" name="formLayout">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Hip width:</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="1">
          <widget class="QSpinBox" name="spinBoxHipWidth">
           <property name="sizePolicy">
@@ -79,7 +72,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0" colspan="2">
+        <item row="2" column="0" colspan="2">
          <widget class="QRadioButton" name="radioButtonMale">
           <property name="text">
            <string>Male     </string>
@@ -92,10 +85,37 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0" colspan="2">
+        <item row="3" column="0" colspan="2">
          <widget class="QRadioButton" name="radioButtonFemale">
           <property name="text">
            <string>Female </string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="5" column="0">
+         <widget class="QPushButton" name="pushButtonResetView">
+          <property name="text">
+           <string>Reset View</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Hip width (mm):</string>
           </property>
          </widget>
         </item>
@@ -126,8 +146,15 @@
     </property>
     <addaction name="actionDemographicOptions"/>
    </widget>
+   <widget class="QMenu" name="menuDevices">
+    <property name="title">
+     <string>Devices</string>
+    </property>
+    <addaction name="actionIMeasureU"/>
+   </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_View"/>
+   <addaction name="menuDevices"/>
   </widget>
   <action name="action_About">
    <property name="text">
@@ -185,6 +212,14 @@
    </property>
    <property name="text">
     <string>Demographic Options</string>
+   </property>
+  </action>
+  <action name="actionIMeasureU">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>I Measure U</string>
    </property>
   </action>
  </widget>

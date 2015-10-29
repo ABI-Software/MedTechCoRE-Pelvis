@@ -111,16 +111,12 @@ def createNodes(finite_element_field, node_coordinate_set):
 
     # Set the finite element coordinate field for the nodes to use
     node_template.defineField(finite_element_field)
-    if time is not None:
-        node_template.setTimesequence(finite_element_field, time_sequence)
 
     field_cache = fieldmodule.createFieldcache()
     for node_coordinate in node_coordinate_set:
         node = nodeset.createNode(-1, node_template)
         # Set the node coordinates, first set the field cache to use the current node
         field_cache.setNode(node)
-        if time is not None:
-            field_cache.setTime(time)
         # Pass in floats as an array
         finite_element_field.assignReal(field_cache, node_coordinate)
 
