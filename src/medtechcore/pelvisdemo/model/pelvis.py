@@ -140,6 +140,8 @@ class PelvisModel(QtCore.QObject):
 
             imu_orientation = [1.0, 0.0, 0.0, pi/2.0]
             axis, angle = quaternionToAxisAngle(quaternion)
+            axis = [axis[2], axis[0], axis[1]]
+            # axis = [axis[1], axis[2], axis[0]]
             self.imuInputReceived.emit(axis, -angle)
             # matrix = quaternionToMatrix(quaternion)
             # self._updateGraphicsMatrix(matrix)

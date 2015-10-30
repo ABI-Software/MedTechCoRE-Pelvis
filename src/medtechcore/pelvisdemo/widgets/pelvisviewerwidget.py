@@ -8,7 +8,7 @@ time_0 = time.time()
 
 initial_view = [[49.79080069116709, 588.9318153465964, -363.0583058231066],
                 [2.285999298095703, -71.78712940216064, -44.651397705078125],
-                [-0.022226151722452247, 0.43531795844346366, 0.9000023740170076]]
+                [0.022226151722452247, -0.43531795844346366, -0.9000023740170076]]
 
 
 class PelvisViewerWidget(SceneviewerWidget):
@@ -23,7 +23,7 @@ class PelvisViewerWidget(SceneviewerWidget):
 
     def resetView(self, gender):
         sv = self.getSceneviewer()
-        print(sv.getLookatParameters())
+        # print(sv.getLookatParameters())
         sv.setLookatParametersNonSkew(initial_view[0], initial_view[1], initial_view[2])
             # if self._visibleGender == self._ui.radioButtonMale.text():
             #     self._ui.widgetScene.setLookatParameters(male_initial_view)
@@ -37,6 +37,7 @@ class PelvisViewerWidget(SceneviewerWidget):
 
     def resetInitial(self):
         sv = self.getSceneviewer()
+        print(sv.getLookatParameters())
         _, self._initial_eye = sv.getEyePosition()
         # _, la = sv.getLookatPosition()
         _, self._initial_up = sv.getUpVector()
