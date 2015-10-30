@@ -4,6 +4,7 @@ import os
 import threading
 import subprocess
 import Queue
+from math import pi
 
 from PySide import QtCore
 
@@ -12,7 +13,7 @@ from opencmiss.zinc.context import Context
 
 from medtechcore.pelvisdemo.utils.zinc import createMeshTime
 from medtechcore.pelvisdemo.utils.zinc import createFiniteElementField
-from medtechcore.pelvisdemo.utils.mathext import quaternionToMatrix, quaternionToAxisAngle
+from medtechcore.pelvisdemo.utils.mathext import quaternionToMatrix, quaternionToAxisAngle, quaternionMultiply
 
 
 class PelvisModel(QtCore.QObject):
@@ -137,7 +138,13 @@ class PelvisModel(QtCore.QObject):
                     return
                 quaternion = self._extractQuaternion(self._stdout_queue.get())
 
+            imu_orientation = [1.0, 0.0, 0.0, pi/2.0]
+            new_quaternion = quaternionMultiply(quaternion, imu_orientation)
+            # print("q {0}, q {1}".format(quaternion, new_quaternion))
             axis, angle = quaternionToAxisAngle(quaternion)
+            # print("raw: {0}, {1}".format(quaternion, angle))
+            # axis = [quaternion[0], quaternion[1], quaternion[2]]
+            # angle = quaternion[3]
             self.imuInputReceived.emit(axis, -angle)
             # matrix = quaternionToMatrix(quaternion)
             # self._updateGraphicsMatrix(matrix)

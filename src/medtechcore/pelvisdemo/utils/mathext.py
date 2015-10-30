@@ -1,6 +1,7 @@
 __author__ = 'hsor001'
 
-from math import acos, sqrt, pi
+from math import acos, sqrt, pi, atan2
+
 
 def quaternionToAxisAngle(q):
     x = q[0]
@@ -9,11 +10,13 @@ def quaternionToAxisAngle(q):
     w = q[3]
     # print('quaternion: {0}, {1}, {2}, {3}'.format(x, y, z, w))
 
-    angle = 2 * acos(w)
-    if angle > pi:
-        angle -= pi
-    if angle < 0.0:
-        angle += pi
+    mag_x = sqrt(x*x + y*y + z*z)
+    # angle = 2 * acos(w)
+    angle = 2 * atan2(mag_x, w)
+    # if angle > pi:
+    #     angle -= pi
+    # if angle < 0.0:
+    #     angle += pi
     axis = [1.0, 0.0, 0.0]
 
     s = sqrt(1.0 - w * w)
@@ -24,8 +27,33 @@ def quaternionToAxisAngle(q):
 
     return axis, angle
 
-def quaternionToMatrix(q):
 
+def quaternionMultiply(a, b):
+    q = [0.0, 0.0, 0.0, 0.0]
+
+    a1 = a[3]
+    a2 = a[0]
+    a3 = a[1]
+    a4 = a[2]
+    b1 = b[3]
+    b2 = b[0]
+    b3 = b[1]
+    b4 = b[2]
+
+    q[0] = a1 * b2 + a2 * b1 + a3 * b4 - a4 * b3
+    q[1] = a1 * b3 - a2 * b4 + a3 * b1 + a4 * b2
+    q[2] = a1 * b4 + a2 * b3 - a3 * b2 + a4 * b1
+    q[3] = a1 * b1 - a2 * b2 - a3 * b3 - a4 * b4
+
+    if q[3] < 0.0:
+        q[3] += pi
+    elif q[3] > pi:
+        q[3] -= pi
+
+    return q
+
+
+def quaternionToMatrix(q):
     mx = [0.0] * 9
     x = q[0]
     y = q[1]
@@ -58,4 +86,3 @@ def quaternionToMatrix(q):
     mx[8] = 1 - xx - yy
 
     return mx
-

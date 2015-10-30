@@ -10,12 +10,14 @@ initial_view = [[49.79080069116709, 588.9318153465964, -363.0583058231066],
                 [2.285999298095703, -71.78712940216064, -44.651397705078125],
                 [-0.022226151722452247, 0.43531795844346366, 0.9000023740170076]]
 
+
 class PelvisViewerWidget(SceneviewerWidget):
 
     def __init__(self, parent):
         super(PelvisViewerWidget, self).__init__(parent)
         self._initial_eye = None
         self._initial_up = None
+        self._up_prev = None
 
         self.graphicsInitialized.connect(self.setInitialView)
 
@@ -30,6 +32,7 @@ class PelvisViewerWidget(SceneviewerWidget):
 
     def setInitialView(self):
         sv = self.getSceneviewer()
+        self._up_prev = initial_view[2][:]
         sv.setLookatParametersNonSkew(initial_view[0], initial_view[1], initial_view[2])
 
     def resetInitial(self):
@@ -168,7 +171,14 @@ class PelvisViewerWidget(SceneviewerWidget):
         up_new[1] = a[1] * up_prime[0] + b_new[1] * up_prime[1] + c_new[1] * up_prime[2]
         up_new[2] = a[2] * up_prime[0] + b_new[2] * up_prime[1] + c_new[2] * up_prime[2]
 
+        # my_dot = self._up_prev[0] * up_new[0] + self._up_prev[1] * up_new[1] + self._up_prev[2] * up_new[2]
+        # if my_dot < 0.0:
+        #     up_new[0] = -up_new[0]
+        #     up_new[1] = -up_new[1]
+        #     up_new[2] = -up_new[2]
+        # print('prev up: {0}, new up: {1}, dot: {2}'.format(self._up_prev, up_new, my_dot))
         sv.setEyePosition(eye_new)
         sv.setUpVector(up_new)
+        # self._up_prev = up_new
 
         sv.endChange()
