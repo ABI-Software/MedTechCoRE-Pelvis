@@ -171,14 +171,7 @@ class PelvisViewerWidget(SceneviewerWidget):
         up_new[1] = a[1] * up_prime[0] + b_new[1] * up_prime[1] + c_new[1] * up_prime[2]
         up_new[2] = a[2] * up_prime[0] + b_new[2] * up_prime[1] + c_new[2] * up_prime[2]
 
-        # my_dot = self._up_prev[0] * up_new[0] + self._up_prev[1] * up_new[1] + self._up_prev[2] * up_new[2]
-        # if my_dot < 0.0:
-        #     up_new[0] = -up_new[0]
-        #     up_new[1] = -up_new[1]
-        #     up_new[2] = -up_new[2]
-        # print('prev up: {0}, new up: {1}, dot: {2}'.format(self._up_prev, up_new, my_dot))
         sv.setEyePosition(eye_new)
         sv.setUpVector(up_new)
-        # self._up_prev = up_new
 
         sv.endChange()

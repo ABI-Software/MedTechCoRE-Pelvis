@@ -139,12 +139,7 @@ class PelvisModel(QtCore.QObject):
                 quaternion = self._extractQuaternion(self._stdout_queue.get())
 
             imu_orientation = [1.0, 0.0, 0.0, pi/2.0]
-            new_quaternion = quaternionMultiply(quaternion, imu_orientation)
-            # print("q {0}, q {1}".format(quaternion, new_quaternion))
             axis, angle = quaternionToAxisAngle(quaternion)
-            # print("raw: {0}, {1}".format(quaternion, angle))
-            # axis = [quaternion[0], quaternion[1], quaternion[2]]
-            # angle = quaternion[3]
             self.imuInputReceived.emit(axis, -angle)
             # matrix = quaternionToMatrix(quaternion)
             # self._updateGraphicsMatrix(matrix)
@@ -152,15 +147,6 @@ class PelvisModel(QtCore.QObject):
             # we've dealt with as much as we can remove anything else
             while not self._stdout_queue.empty():
                 self._stdout_queue.get_nowait()
-            # while not self._stdout_queue.empty():
-            #     line = self._stdout_queue.get()
-            #     parts = line.split(' ')
-            #     if len(parts) == 13:
-            #         values = [float(v) for v in parts]
-            #         quaternion = values[9:]
-            #         # print 'Received line on standard output: ' + repr(quaternion)
-            #         axis, angle = quaternionToAxisAngle(quaternion)
-            #         self.imuInputReceived.emit(axis, angle)
 
     def _updateGraphicsMatrix(self, matrix):
         fieldmodule = self._male_graphics_coordinate_field.getFieldmodule()
